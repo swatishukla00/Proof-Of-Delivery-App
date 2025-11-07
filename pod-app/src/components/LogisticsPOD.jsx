@@ -10,6 +10,7 @@ const LogisticsPOD = () => {
   const [uploadStatus, setUploadStatus] = useState('');
   const [isScanning, setIsScanning] = useState(false);
   const [scanMessage, setScanMessage] = useState(''); // New state for scanning feedback
+  const [useFrontCamera, setUseFrontCamera] = useState(true); // State for camera toggle
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const scanTimeoutRef = useRef(null);
@@ -24,7 +25,7 @@ const LogisticsPOD = () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ 
         video: { 
-          facingMode: 'user', // Changed to 'user' for laptop front camera
+          facingMode: useFrontCamera ? 'user' : 'environment', // Toggle between front and rear camera
           width: { ideal: 1280 },
           height: { ideal: 720 }
         } 
@@ -44,6 +45,11 @@ const LogisticsPOD = () => {
       setUploadStatus('Error accessing camera: ' + err.message);
       setIsScanning(false);
     }
+  };
+
+  // Toggle between front and rear camera
+  const toggleCamera = () => {
+    setUseFrontCamera(!useFrontCamera);
   };
 
   // Scan for barcodes using jsQR with improved detection
@@ -124,7 +130,7 @@ const LogisticsPOD = () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ 
         video: { 
-          facingMode: 'user', // Changed to 'user' for laptop front camera
+          facingMode: useFrontCamera ? 'user' : 'environment', // Toggle between front and rear camera
           width: { ideal: 1280 },
           height: { ideal: 720 }
         } 
@@ -164,7 +170,7 @@ const LogisticsPOD = () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ 
         video: { 
-          facingMode: 'user', // Changed to 'user' for laptop front camera
+          facingMode: useFrontCamera ? 'user' : 'environment', // Toggle between front and rear camera
           width: { ideal: 1280 },
           height: { ideal: 720 }
         }, 
@@ -300,12 +306,23 @@ const LogisticsPOD = () => {
             >
               Enter AWB Manually
             </button>
+            {isScanning && (
+              <button 
+                onClick={toggleCamera} 
+                className="camera-toggle-btn"
+              >
+                Switch to {useFrontCamera ? 'Rear' : 'Front'} Camera
+              </button>
+            )}
           </div>
           {isScanning && (
             <div className="scanner-preview">
               <video ref={videoRef} className="scanner-video" />
               <canvas ref={canvasRef} style={{ display: 'none' }} />
               <p className="scan-message">{scanMessage}</p>
+              <p className="camera-mode">
+                Using {useFrontCamera ? 'Front' : 'Rear'} Camera
+              </p>
             </div>
           )}
           {awbNumber && (
@@ -324,6 +341,12 @@ const LogisticsPOD = () => {
             </button>
             <button onClick={recordVideo} className="capture-btn video-btn">
               Record Video
+            </button>
+            <button 
+              onClick={toggleCamera} 
+              className="capture-btn toggle-camera-btn"
+            >
+              Use {useFrontCamera ? 'Rear' : 'Front'} Camera
             </button>
           </div>
           

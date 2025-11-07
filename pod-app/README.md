@@ -1,65 +1,46 @@
-# Logistics Proof of Delivery (POD) App
+# Logistics Proof of Delivery App
 
-A prototype web application for delivery drivers to scan AWB numbers, capture proof of delivery media, and upload to cloud storage.
+This is a web application for delivery personnel to capture proof of delivery using their device's camera.
 
 ## Features
 
-1. **AWB Scanning**: Simulate scanning package Air Waybill numbers
-2. **Media Capture**: Take photos or record videos as proof of delivery
-3. **Cloud Storage**: Upload captured media associated with AWB numbers
+- Scan barcode/QR codes for package tracking
+- Take photos or record videos as proof of delivery
+- Upload media to cloud storage
+- Toggle between front and rear camera
 
-## Technology Stack
+## Tech Stack
 
-- **Frontend**: React with Vite
-- **Styling**: CSS3 with responsive design
-- **Camera API**: Browser MediaDevices API
-- **Build Tool**: Vite
+- React + Vite
+- jsQR for barcode scanning
+- Vanilla CSS
 
-## Getting Started
+## Setup
 
-### Prerequisites
-
-- Node.js (v14 or higher)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository
-2. Navigate to the project directory:
-   ```bash
-   cd pod-app
+1. Install dependencies:
    ```
-3. Install dependencies:
-   ```bash
    npm install
    ```
 
-### Running the Application
-
-1. Start the development server:
-   ```bash
+2. Run locally:
+   ```
    npm run dev
    ```
-2. Open your browser and navigate to `http://localhost:3000`
 
-### Building for Production
+3. Build for production:
+   ```
+   npm run build
+   ```
 
-```bash
-npm run build
-```
+## Deployment
 
-The built files will be in the `dist` directory.
+Deployed on Vercel. Any changes pushed to main branch will automatically deploy.
 
 ## Usage
 
-1. Click "Scan AWB Barcode" to enter an AWB number (simulated)
-2. Choose to "Take Photo" or "Record Video" for proof of delivery
-3. Click "Upload to Cloud" to simulate uploading to cloud storage
+1. Click "Scan AWB Barcode" to start scanning
+2. Use the camera toggle button to switch between front/rear camera
+3. Take a photo or record a video as proof
+4. Upload to cloud storage
 
-## System Design
-
-See [SYSTEM_DESIGN.md](SYSTEM_DESIGN.md) for detailed architecture and data model information.
-
-## License
-
-This project is licensed under the MIT License.
+Built with ❤️ for logistics teams
